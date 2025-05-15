@@ -68,11 +68,13 @@
 
           if (condicaoExibir) {
             const div = document.createElement('div');
-            div.className = 'card-alerta';
+            div.className = 'card-alerta ' + (tipoAlerta !== 'urgente' ? 'alerta-normal' : '');
             div.innerHTML = `
               <div class="icone">${tipoAlerta === 'urgente' ? '🚨' : '⚠️'}</div>
               <div class="conteudo">
-                <span class="tempo">Agora mesmo</span>
+                <span class="tempo">
+                  ${tipoAlerta === 'urgente'? 'Polícia: 190 | Emergência: 192':'Alerta de segurança'}
+                  </span>
                 <strong>${alerta.titulo}</strong>
                 <p>${alerta.descricao}</p>
                 <p><strong>Local:</strong> ${alerta.local}</p>

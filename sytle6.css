@@ -62,7 +62,7 @@ body {
 }
 
 .evento {
-  background: #d3d4d4;
+  background: #444242;
   border-radius: 15px;
   padding: 65px 20px;
   margin-bottom: 15px;
@@ -86,7 +86,7 @@ p{
 
 .evento small {
   display: block;
-  color: #000000;
+  color: #a1a1a1;
   font-weight: 600;
   margin-bottom: 8px;
   font-size: 23px;
@@ -131,14 +131,14 @@ p{
 
 .evento h3 {
   font-size: 26px;
-  color: #000000;
+  color: #ffffff;
   font-weight: 600;
   margin-bottom: 4px;
 }
 
 .evento p {
   font-size: 20px;   
-  color: #0b0bcd;
+  color: #64fc53;
 }
 
 .evento p2 {
