@@ -73,8 +73,8 @@
         itemDiv.innerHTML = `
           <img src="${item.imagem}" alt="${item.nome}" />
           <div>
-            <strong>${item.nome}</strong><br/>
-            <span>Endereço solicitante: ${item.distancia}</span><br/>
+            <strong style="color:white; font-weight: 500; font-size: 18px">${item.nome}</strong><br/>
+            <span style="color: #e0dede"><span class="spanverde">Endereço solicitante:</span> ${item.distancia}</span><br/>
             <div class="status ${item.status === 'Disponível' ? 'disponivel' : 'emprestado'}">${statusTexto}</div>
             <button class="solicitar-btn">${botaoTexto}</button>
           </div>

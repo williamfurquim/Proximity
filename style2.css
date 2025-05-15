@@ -90,6 +90,7 @@ input:focus {
 #lista-itens::-webkit-scrollbar-thumb {
   background-color: #6936aa;
   border-radius: 3px;
+  color: #e0dede;
 }
 
 .item {
@@ -97,9 +98,10 @@ input:focus {
   align-items: center;
   margin-bottom: 12px;
   padding: 10px;
-  border: 2px solid #000000;
+  ;
   border-radius: 10px;
-  background: #f9f9f9;
+  background: #444242;
+  
   width: 100%;
   gap: 10px;
   opacity: 0;
@@ -107,8 +109,12 @@ input:focus {
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+.spanverde{
+  color: #64fc53;
+}
+
 .item img {
-  width: 55px;
+  width: 65px;
   height: 55px;
   object-fit: contain;
 }
