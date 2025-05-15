@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#9C27B0">
+  <title>Comércio Local - Proximity</title>
+  <link rel="stylesheet" href="./style3.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Comércio Local</h1>
+    <a href="index4.html">
+      <button id="ofe">Retornar</button>
+    </a>
+    <input type="text" id="search-comercio" placeholder="Busque comércios próximos" />
+
+    <!-- Linha de categorias com rolagem horizontal -->
+    <div class="categorias">
+      <button>📱 Eletrônicos</button>
+      <button>🍔 Alimentos</button>
+      <button>👗 Moda</button>
+      <button>💆‍♀️ Beleza</button>
+      <button>🛠️ Serviços</button>
+      <button>🏡 Imóveis</button>
+    </div>
+
+    <!-- Lista de comércios -->
+    <div id="lista-comercios"></div>
+
+    <!-- Botão principal no final da página -->
+    <button id="oferecer-btn">Adicionar Comércio</button>
+  </div>
+
+  <script>
+    const comercios = [
+      {
+        nome: "Studio Urban",
+        imagem: "https://studiourban.ageenda.com.br/wp-content/uploads/IMG_4469-1024x1024.png",
+        descricao: "Barbearia",
+        distancia: "0,7km"
+      },
+      {
+        nome: "Mercado Forlin",
+        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1ChcDel_43HadM_8WgYQs9bRr8tKKQykmtQ&s",
+        descricao: "Mercado",
+        distancia: "0,5km"
+      },
+      {
+        nome: "Quadra Castelinho",
+        imagem: "https://media-poa1-1.cdn.whatsapp.net/v/t61.24694-24/287102872_427393809456730_6518798105876612222_n.jpg?ccb=11-4&oh=01_Q5Aa1QGtzwNRwjFnHX2cGyu96eVvz0HucqWqlUG01kcnTe0JjQ&oe=680650E0&_nc_sid=5e03e0&_nc_cat=106",
+        descricao: "Quadra de esportes",
+        distancia: "300m"
+      },
+      {
+        nome: "São João",
+        imagem: "https://play-lh.googleusercontent.com/Dq8lW6WJKyzQksmrLxwE2wCCf2lUDkAMVy6UfDOMFG1n7Q-2zvCBe5sjwH4r3ZM5djnG",
+        descricao: "Farmácia e drogaria",
+        distancia: "1,2km"
+      }
+    ];
+
+    function exibirComercios(lista) {
+      const container = document.getElementById("lista-comercios");
+      container.innerHTML = "";
+
+      lista.forEach(comercio => {
+        const div = document.createElement("div");
+        div.className = "comercio-card";
+        div.innerHTML = `
+          <img src="${comercio.imagem}" alt="${comercio.nome}">
+          <div>
+            <strong>${comercio.nome}</strong><br>
+            <span>${comercio.descricao}</span><br>
+            <span>${comercio.distancia} de você</span>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    exibirComercios(comercios);
+
+    document.getElementById("search-comercio").addEventListener("input", (e) => {
+      const termo = e.target.value.toLowerCase();
+      const filtrado = comercios.filter(c => c.nome.toLowerCase().includes(termo));
+      exibirComercios(filtrado);
+    });
+  </script>
+    <script src="./register-sw.js"></script>
+
+</body>
+</html>

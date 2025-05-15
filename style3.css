@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Outfit", sans-serif;
+}
+
+body {
+  background: linear-gradient(to right, #3a0397, #6936aa);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  transition: all 0.3s;
+}
+
+input:focus {
+  border-color: #3a0397;
+  outline: none;
+  box-shadow: 0 0 5px rgba(58, 3, 151, 0.4);
+}
+
+.categorias {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  width: 100%;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+.categorias::-webkit-scrollbar {
+  height: 6px;
+}
+
+.categorias::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 4px;
+}
+
+.categorias button {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  border: none;
+  background: #dcdcdc;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: transform 0.3s;
+}
+
+.categorias button:hover {
+  background-color: #b4b4b4;
+  transform: scale(1.02);
+}
+
+/* Lista de comércios - agora com scroll interno! */
+#lista-comercios {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-bottom: 20px;
+}
+
+/* Cards de comércio */
+.comercio-card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  background: #f1f1f1;
+  width: 100%;
+  gap: 10px;
+}
+
+.comercio-card img {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid #16a085;
+  border-style: outset;
+}
+
+.comercio-card div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.comercio-card span {
+  font-size: 12px;
+  color: #333;
+}
+
+/* Botão de adicionar comércio fixo na base */
+#oferecer-btn {
+  background-color: teal;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 16px;
+  margin-top: auto;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#oferecer-btn:hover {
+  background-color: #004848;
+  transform: scale(1.02);
+}
+
+#ofe {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 8px;
+  border-radius: 12px;
+  font-size: 16px;
+  margin-top: auto;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}

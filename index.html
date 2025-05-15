@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#9C27B0">
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2196f3">
+  <title>Proximity</title>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <div class="centro">
+    <img src="./4.PNG" alt="Logo" />
+    <h2>Se conecte ao seu bairro!</h2>
+
+    <!-- Botões -->
+    <div class="botoes">
+      <button class="login">Login</button>
+      <button class="cadastro">Cadastrar-se</button>
+    </div>
+
+    <!-- Formulário de Login -->
+    <form class="formulario login-form" style="display: none;">
+      <input class="input-login" type="text" placeholder="Nome de usuário" required />
+      <input class="input-login" type="password" placeholder="Senha" required />
+      <button class="btn" type="submit">Entrar</button>
+      <p class="erro" style="color: red; display: none; margin-top: 10px;">Usuário ou senha incorretos!</p>
+    </form>
+
+    <!-- Formulário de Cadastro -->
+    <form class="formulario cadastro-form" style="display: none;">
+      <input class="input-cad" type="text" placeholder="Nome de usuário" required />
+      <input class="input-cad" type="password" placeholder="Senha (mínimo 8 caracteres)" required />
+      <input class="input-cad" type="password" placeholder="Confirmar senha" required />
+      <select id="bairro" class="input-cad" required>
+        <option value="" disabled selected>Selecione seu bairro</option>
+        <option value="Panazzolo">18 do Forte</option>
+<option value="Panazzolo">Ana Rech</option>
+<option value="Panazzolo">Castelo</option>
+<option value="Panazzolo">Centenário</option>
+<option value="Panazzolo">Cidade Nova</option>
+<option value="Panazzolo">Cruzeiro</option>
+<option value="Panazzolo">Desvio Rizzo</option>
+<option value="Panazzolo">Diamantino</option>
+<option value="Panazzolo">Esplanada</option>
+<option value="Panazzolo">Exposição</option>
+<option value="Panazzolo">Fátima</option>
+<option value="Panazzolo">Floresta</option>
+<option value="Panazzolo">Iracema</option>
+<option value="Panazzolo">Jardim América</option>
+<option value="Panazzolo">Jardim das Hortências</option>
+<option value="Panazzolo">Medianeira</option>
+<option value="Panazzolo">Panazzolo</option>
+<option value="Panazzolo">Planalto</option>
+<option value="Panazzolo">Pioneiro</option>
+<option value="Panazzolo">Pôr do Sol</option>
+<option value="Panazzolo">Rio Branco</option>
+<option value="Panazzolo">São Ciro</option>
+<option value="Panazzolo">São Ciro 2</option>
+<option value="Panazzolo">São Cristóvão</option>
+<option value="Panazzolo">São Luís</option>
+<option value="Panazzolo">São Pelegrino</option>
+<option value="Panazzolo">Serrano</option>
+<option value="Panazzolo">Vitória</option>
+<option value="Panazzolo">Vila Verde</option>
+<option value="Panazzolo">Santa Catarina</option>
+
+      </select>
+      <button class="btn" type="submit">Cadastrar</button>
+      <p class="sucesso" style="color: green; display: none; margin-top: 10px;">Cadastro realizado com sucesso!</p>
+    </form>
+  </div>
+
+  <script>
+    // CONFIG FIREBASE
+    const firebaseConfig = {
+      apiKey: "AIzaSyBlpWF7Gsyf4ax2PaXVR79zKncc419ktv4",
+      authDomain: "proximity-ddb49.firebaseapp.com",
+      databaseURL: "https://proximity-ddb49-default-rtdb.firebaseio.com",
+      projectId: "proximity-ddb49",
+      storageBucket: "proximity-ddb49.appspot.com",
+      messagingSenderId: "112062802038",
+      appId: "1:112062802038:web:2f2eca97ef48e21c741757"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    const loginBtn = document.querySelector('.login');
+    const cadastroBtn = document.querySelector('.cadastro');
+    const loginForm = document.querySelector('.login-form');
+    const cadastroForm = document.querySelector('.cadastro-form');
+
+    // Alternar formulários
+    loginBtn.addEventListener('click', () => {
+      loginForm.style.display = 'block';
+      cadastroForm.style.display = 'none';
+    });
+
+    cadastroBtn.addEventListener('click', () => {
+      cadastroForm.style.display = 'block';
+      loginForm.style.display = 'none';
+    });
+
+    // Cadastro
+    cadastroForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const inputs = cadastroForm.querySelectorAll('input');
+      const username = inputs[0].value.trim();
+      const password = inputs[1].value.trim();
+      const confirmPassword = inputs[2].value.trim();
+      const bairro = document.getElementById('bairro').value;
+
+      if (password.length < 8) {
+        inputs[1].classList.add('shake');
+        setTimeout(() => inputs[1].classList.remove('shake'), 300);
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        [inputs[1], inputs[2]].forEach(input => {
+          input.classList.add('shake');
+          setTimeout(() => input.classList.remove('shake'), 300);
+        });
+        return;
+      }
+
+      const emailFake = username + "@proximity.app";
+
+      auth.createUserWithEmailAndPassword(emailFake, password)
+        .then(() => {
+          cadastroForm.classList.add('fade-out');
+          setTimeout(() => {
+            cadastroForm.style.display = 'none';
+            cadastroForm.classList.remove('fade-out');
+            cadastroForm.reset();
+
+            loginForm.style.display = 'block';
+            loginForm.classList.add('fade-in');
+            setTimeout(() => loginForm.classList.remove('fade-in'), 500);
+          }, 500);
+        })
+        .catch((error) => {
+          alert("Erro ao cadastrar: " + error.message);
+        });
+    });
+
+    // Login
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const inputs = loginForm.querySelectorAll('input');
+      const usernameInput = inputs[0];
+      const passwordInput = inputs[1];
+
+      const emailFake = usernameInput.value.trim() + "@proximity.app";
+      const password = passwordInput.value.trim();
+
+      auth.signInWithEmailAndPassword(emailFake, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          // Login bem-sucedido, redirecionar para index4.html
+document.body.classList.add('page-fade-out');
+setTimeout(() => {
+  window.location.href = "index4.html";
+}, 500);
+
+
+          document.body.classList.add('page-fade-out');
+          setTimeout(() => {
+            window.location.href = "index4.html";
+          }, 500);
+        })
+        .catch((error) => {
+          [usernameInput, passwordInput].forEach(input => {
+            input.classList.add('shake');
+            setTimeout(() => input.classList.remove('shake'), 300);
+          });
+          alert(error.message);
+        });
+    });
+  </script>
+    <script src="./register-sw.js"></script>
+
+</body>
+</html>

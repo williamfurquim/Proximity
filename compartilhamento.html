@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#9C27B0">
+  <title>Compartilhamento de itens</title>
+  <link rel="stylesheet" href="./style2.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Compartilhamento de itens</h1>
+
+    <a href="./index4.html" style="width: 100%;">
+      <button id="ofe">Retornar</button>
+    </a>
+
+    <input type="text" id="search" placeholder="O que você precisa hoje?" />
+
+    <div class="categorias">
+      <button data-categoria="todos">📦 Todos os Itens</button>
+      <button data-categoria="ferramentas">🔧 Ferramentas</button>
+      <button data-categoria="livros">📚 Livros</button>
+      <button data-categoria="cozinha">🍳 Cozinha</button>
+      <button data-categoria="lazer">🎮 Lazer</button>
+      <button data-categoria="esportes">⚽ Esportes</button>
+      <button data-categoria="material">🎨 Material</button>
+      <button data-categoria="saude">💚 Saúde</button>
+    </div>
+
+    <div id="lista-itens"></div>
+
+    <a href="./botaocompart.html" style="width: 100%;">
+      <button id="oferecer-btn">Solicitar item</button>
+    </a>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+  <script src="./firebase-config.js"></script>
+
+  <script>
+    const todosItens = [];
+
+    const databaseRef = database.ref("itensSolicitados");
+
+    databaseRef.on("value", (snapshot) => {
+      const data = snapshot.val();
+      const extras = [];
+
+      if (data) {
+        Object.keys(data).forEach((key) => {
+          extras.push(data[key]);
+        });
+      }
+
+      todosItens.length = 0;
+      todosItens.push(...extras);
+      exibirItens(todosItens);
+    });
+
+    function exibirItens(lista) {
+      const container = document.getElementById("lista-itens");
+      container.innerHTML = "";
+
+      lista.forEach(item => {
+        const itemDiv = document.createElement("div");
+        itemDiv.className = `item categoria-${item.categoria?.toLowerCase() || ''}`;
+
+        const statusTexto = item.status === "Disponível" ? "Empréstimo" : "Compra";
+        const botaoTexto = item.status === "Disponível" ? "Emprestar" : "Oferecer";
+
+        itemDiv.innerHTML = `
+          <img src="${item.imagem}" alt="${item.nome}" />
+          <div>
+            <strong>${item.nome}</strong><br/>
+            <span>Endereço solicitante: ${item.distancia}</span><br/>
+            <div class="status ${item.status === 'Disponível' ? 'disponivel' : 'emprestado'}">${statusTexto}</div>
+            <button class="solicitar-btn">${botaoTexto}</button>
+          </div>
+        `;
+
+        container.appendChild(itemDiv);
+
+        const solicitarBtn = itemDiv.querySelector(".solicitar-btn");
+
+        let solicitado = false;
+        solicitarBtn.addEventListener("click", () => {
+          if (solicitado) {
+            const confirmar = confirm("Tem certeza que deseja cancelar a negociação?");
+            if (confirmar) {
+              solicitado = false;
+              atualizarBotaoSolicitacao(false);
+            }
+          } else {
+            alert(item.status === "Disponível" ? "Solicitação de empréstimo enviada!" : "Item oferecido ao solicitante!");
+            solicitado = true;
+            atualizarBotaoSolicitacao(true);
+          }
+        });
+
+        function atualizarBotaoSolicitacao(s) {
+          if (s) {
+            solicitarBtn.textContent = item.status === "Disponível" ? "Emprestado" : "Oferecido";
+            solicitarBtn.style.backgroundColor = "black";
+            solicitarBtn.style.color = "white";
+          } else {
+            solicitarBtn.textContent = item.status === "Disponível" ? "Emprestar" : "Oferecer";
+            solicitarBtn.style.backgroundColor = "";
+            solicitarBtn.style.color = "";
+          }
+        }
+
+        setTimeout(() => {
+          itemDiv.style.opacity = "1";
+          itemDiv.style.transform = "translateY(0)";
+        }, 100);
+      });
+    }
+
+    document.getElementById("search").addEventListener("input", (e) => {
+      const termo = e.target.value.toLowerCase();
+      const filtrado = todosItens.filter(i => i.nome.toLowerCase().includes(termo));
+      exibirItens(filtrado);
+    });
+
+    document.querySelectorAll(".categorias button").forEach(botao => {
+      botao.addEventListener("click", () => {
+        const categoria = botao.dataset.categoria;
+
+        if (categoria === "todos") {
+          exibirItens(todosItens);
+        } else {
+          const filtrado = todosItens.filter(i => i.categoria?.toLowerCase() === categoria);
+          exibirItens(filtrado);
+        }
+      });
+    });
+  </script>
+  <script src="./register-sw.js"></script>
+</body>
+</html>
