@@ -49,6 +49,41 @@ h1 {
   width: 100%;
 }
 
+.devamanda{
+  height: 29px;
+  width: 150px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 45px;
+}
+
+.devamanda img{
+  height: 30px;
+  width: auto;
+  margin-top: 14px;
+}
+
+.devwilliam{
+  height: 29px;
+  width: 180px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.devwilliam img{
+  height: 30px;
+  width: auto;
+  margin-top: 14px;
+}
+
+
+
+
 button {
   margin: 5px;
   padding: 25px;
@@ -83,7 +118,7 @@ button {
   padding: 10px;
   border-radius: 6px;
   font-size: 12px;
-  margin-top: 35px;
+  margin-top: 17px;
 }
 .trocarConta:hover {
   transform: scale(1.02);
@@ -95,13 +130,11 @@ h3 {
   margin-top: 25px;
 }
 
-@media (max-width: 400px) {
-  .compart, .alert, .comer, .event {
-    width: 90%;
-    padding: 20px;
-    font-size: 1em;
+@media (max-width: 360px){
+  button{
+    width: 280px;
+    padding: 23px;
   }
-  
 }
 
 

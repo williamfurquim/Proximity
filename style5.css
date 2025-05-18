@@ -239,4 +239,8 @@ p {
   transform: scale(1.05);
 }
 
-
+@media (max-width: 390px){
+  .categorias button{
+    font-size: 11px;
+  }
+}

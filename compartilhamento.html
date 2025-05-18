@@ -40,17 +40,16 @@
   <script src="./firebase-config.js"></script>
 
   <script>
-    const todosItens = [];
+    const todosItens = []; //Cria uma lista vazia
+    const databaseRef = database.ref("itensSolicitados"); //Cria uma referência ao banco de dados de "itensSolicitados"
 
-    const databaseRef = database.ref("itensSolicitados");
+    databaseRef.on("value", (snapshot) => { //Adiciona um ouvinte para saber sobre atualização do banco dados, o "value" escuta as mudanças no nó (on) e me envia uma "print".
+      const data = snapshot.val(); //Serve para traduzir os dados para JavaScript, colocado dentro de uma variável
+      const extras = []; //
 
-    databaseRef.on("value", (snapshot) => {
-      const data = snapshot.val();
-      const extras = [];
-
-      if (data) {
-        Object.keys(data).forEach((key) => {
-          extras.push(data[key]);
+      if (data) { //Verifica se "data", que é a tradução de dados, não é nulo ou indefinido - Se houver dados dentro, execute a seguir: 
+        Object.keys(data).forEach((key) => { //Pega todas as chaves do objeto, e para cada chave executa a função debaixo
+          extras.push(data[key]); //Coloca valores na lista vazia
         });
       }
 
