@@ -7,24 +7,21 @@
   <meta name="theme-color" content="#9C27B0">
   <link rel="stylesheet" href="./CSS/style.css">
   <meta name="theme-color" content="#2196f3">
-  <title>Proximity</title>
-
-  <!-- Firebase SDKs -->
+  <title>Proximity</title>  
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 </head>
 <body>
   <div class="centro">
-    <img src="./Imagens/4.PNG" alt="Logo" />
+    
+    <img src="./Imagens/Proximity-logo.PNG" alt="Logo" />
     <h2>Se conecte ao seu bairro!</h2>
 
-    <!-- Botões -->
     <div class="botoes">
       <button class="login">Login</button>
       <button class="cadastro">Cadastrar-se</button>
     </div>
-
-    <!-- Formulário de Login -->
+    
     <form class="formulario login-form" style="display: none;">
       <input class="input-login" type="text" placeholder="Nome de usuário" required />
       <input class="input-login" type="password" placeholder="Senha" required />
@@ -32,78 +29,77 @@
       <p class="erro" style="color: red; display: none; margin-top: 10px;">Usuário ou senha incorretos!</p>
     </form>
 
-    <!-- Formulário de Cadastro -->
     <form class="formulario cadastro-form" style="display: none;">
       <input class="input-cad" type="text" placeholder="Nome de usuário" required />
       <input class="input-cad" type="password" placeholder="Senha (mínimo 8 caracteres)" required />
       <input class="input-cad" type="password" placeholder="Confirmar senha" required />
       <select id="bairro" class="input-cad" required>
         <option value="" disabled selected>Selecione seu bairro</option>
-        <option value="Panazzolo">18 do Forte</option>
-<option value="Panazzolo">Ana Rech</option>
-<option value="Panazzolo">Castelo</option>
-<option value="Panazzolo">Centenário</option>
-<option value="Panazzolo">Cidade Nova</option>
-<option value="Panazzolo">Cruzeiro</option>
-<option value="Panazzolo">Desvio Rizzo</option>
-<option value="Panazzolo">Diamantino</option>
-<option value="Panazzolo">Esplanada</option>
-<option value="Panazzolo">Exposição</option>
-<option value="Panazzolo">Fátima</option>
-<option value="Panazzolo">Floresta</option>
-<option value="Panazzolo">Iracema</option>
-<option value="Panazzolo">Jardim América</option>
-<option value="Panazzolo">Jardim das Hortências</option>
-<option value="Panazzolo">Medianeira</option>
-<option value="Panazzolo">Panazzolo</option>
-<option value="Panazzolo">Planalto</option>
-<option value="Panazzolo">Pioneiro</option>
-<option value="Panazzolo">Pôr do Sol</option>
-<option value="Panazzolo">Rio Branco</option>
-<option value="Panazzolo">São Ciro</option>
-<option value="Panazzolo">São Ciro 2</option>
-<option value="Panazzolo">São Cristóvão</option>
-<option value="Panazzolo">São Luís</option>
-<option value="Panazzolo">São Pelegrino</option>
-<option value="Panazzolo">Serrano</option>
-<option value="Panazzolo">Vitória</option>
-<option value="Panazzolo">Vila Verde</option>
-<option value="Panazzolo">Santa Catarina</option>
-
+        <option value="18 do Forte">18 do Forte</option>
+        <option value="Ana Rech">Ana Rech</option>
+        <option value="Castelo">Castelo</option>
+        <option value="Centenário">Centenário</option>
+        <option value="Cidade Nova">Cidade Nova</option>
+        <option value="Cruzeiro">Cruzeiro</option>
+        <option value="Desvio Rizzo">Desvio Rizzo</option>
+        <option value="Diamantino">Diamantino</option>
+        <option value="Esplanada">Esplanada</option>
+        <option value="Exposição">Exposição</option>
+        <option value="Fátima">Fátima</option>
+        <option value="Floresta">Floresta</option>
+        <option value="Iracema">Iracema</option>
+        <option value="Jardim América">Jardim América</option>
+        <option value="Jardim das Hortências">Jardim das Hortências</option>
+        <option value="Medianeira">Medianeira</option>
+        <option value="Panazzolo">Panazzolo</option>
+        <option value="Planalto">Planalto</option>
+        <option value="Pioneio">Pioneiro</option>
+        <option value="Pôr do Sol">Pôr do Sol</option>
+        <option value="Rio Branco">Rio Branco</option>
+        <option value="São Ciro">São Ciro</option>
+        <option value="São Ciro 2">São Ciro 2</option>
+        <option value="São Cristóvão">São Cristóvão</option>
+        <option value="São Luís">São Luís</option>
+        <option value="São Pelegrino">São Pelegrino</option>
+        <option value="Serrano">Serrano</option>
+        <option value="Vitória">Vitória</option>
+        <option value="Vila Verde">Vila Verde</option>
+        <option value="Santa Catarina">Santa Catarina</option>
       </select>
+      
       <button class="btn" type="submit">Cadastrar</button>
       <p class="sucesso" style="color: green; display: none; margin-top: 10px;">Cadastro realizado com sucesso!</p>
     </form>
 
     <div class="devamanda">
-      <img src="./Imagens/png-transparent-computer-icons-instagram-black-riviera-instagram-logo-share-icon-black-instagram-thumbnail-removebg-preview.png" alt="">
+      <img src="./Imagens/ig-icon.png" alt="">
       <p>jaguella_amanda</p>
     </div>
 
     <div class="devwilliam">
-      <img src="./Imagens/png-transparent-computer-icons-instagram-black-riviera-instagram-logo-share-icon-black-instagram-thumbnail-removebg-preview.png" alt="">
+      <img src="./Imagens/ig-icon.png" alt="">
       <p>williamfurquim_</p>
     </div>
+
   </div>
 
-  <script>
-    // CONFIG FIREBASE
-    const firebaseConfig = {
-      apiKey: "AIzaSyBlpWF7Gsyf4ax2PaXVR79zKncc419ktv4",
-      authDomain: "proximity-ddb49.firebaseapp.com",
-      databaseURL: "https://proximity-ddb49-default-rtdb.firebaseio.com",
-      projectId: "proximity-ddb49",
-      storageBucket: "proximity-ddb49.appspot.com",
-      messagingSenderId: "112062802038",
-      appId: "1:112062802038:web:2f2eca97ef48e21c741757"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBlpWF7Gsyf4ax2PaXVR79zKncc419ktv4",
+    authDomain: "proximity-ddb49.firebaseapp.com",
+    databaseURL: "https://proximity-ddb49-default-rtdb.firebaseio.com",
+    projectId: "proximity-ddb49",
+    storageBucket: "proximity-ddb49.appspot.com",
+    messagingSenderId: "112062802038",
+    appId: "1:112062802038:web:2f2eca97ef48e21c741757"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
 
-    const loginBtn = document.querySelector('.login');
-    const cadastroBtn = document.querySelector('.cadastro');
-    const loginForm = document.querySelector('.login-form');
-    const cadastroForm = document.querySelector('.cadastro-form');
+  const loginBtn = document.querySelector('.login');
+  const cadastroBtn = document.querySelector('.cadastro');
+  const loginForm = document.querySelector('.login-form');
+  const cadastroForm = document.querySelector('.cadastro-form');
 
     // Alternar formulários
     loginBtn.addEventListener('click', () => {
@@ -175,15 +171,15 @@
         .then((userCredential) => {
           const user = userCredential.user;
           // Login bem-sucedido, redirecionar para index4.html
-document.body.classList.add('page-fade-out');
-setTimeout(() => {
-  window.location.href = "index4.html";
-}, 500);
+          document.body.classList.add('page-fade-out');
+          setTimeout(() => {
+            window.location.href = "menu.html";
+          }, 500);
 
 
           document.body.classList.add('page-fade-out');
           setTimeout(() => {
-            window.location.href = "index4.html";
+            window.location.href = "menu.html";
           }, 500);
         })
         .catch((error) => {
@@ -194,8 +190,9 @@ setTimeout(() => {
           alert(error.message);
         });
     });
-  </script>
-    <script src="./JS/register-sw.js"></script>
+</script>
+
+<script src="./JS/register-sw.js"></script>
 
 </body>
 </html>

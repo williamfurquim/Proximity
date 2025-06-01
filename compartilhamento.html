@@ -5,22 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="theme-color" content="#9C27B0">
   <title>Compartilhamento de itens</title>
-  <link rel="stylesheet" href="./CSS/style2.css">
+  <link rel="stylesheet" href="./CSS/compartilhamento.css">
 </head>
 <body>
   <div class="container">
+
     <h1>Compartilhamento de itens</h1>
 
-    <a href="./index4.html" style="width: 100%;">
+    <a href="./menu.html" style="width: 100%;">
       <button id="ofe">Retornar</button>
     </a>
 
     <input type="text" id="search" placeholder="O que você precisa hoje?" />
 
     <div class="categorias">
+      
       <a href="./notificacoes.html">
         <button id="notificacaoBtn">🔔</button>
       </a>
+
       <button data-categoria="todos">📦 Todos os Itens</button>
       <button data-categoria="ferramentas">🔧 Ferramentas</button>
       <button data-categoria="livros">📚 Livros</button>
@@ -29,13 +32,15 @@
       <button data-categoria="esportes">⚽ Esportes</button>
       <button data-categoria="material">🎨 Material</button>
       <button data-categoria="saude">💚 Saúde</button>
+
     </div>
 
     <div id="lista-itens"></div>
 
-    <a href="./botaocompart.html" style="width: 100%;">
+    <a href="./btn-compart.html" style="width: 100%;">
       <button id="oferecer-btn">Solicitar item</button>
     </a>
+
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -52,47 +57,47 @@
         alert("Você precisa estar logado.");
         window.location.href = "login.html";
         return;
-      }
+    }
 
-      usuarioAtualUid = user.uid;
+    usuarioAtualUid = user.uid;
 
-      // Verificar se há notificações não lidas
-                const notificacoesRef = database.ref("notificacoes");
-          notificacoesRef.on("value", (snapshot) => {
-            let temNaoLidas = false;
-            snapshot.forEach((childSnapshot) => {
-              const n = childSnapshot.val();
-              // O botão só pisca se a notificação for direcionada AO usuário logado (destinatário) e ainda não visualizada
-              if (n.uidDestino === usuarioAtualUid && !n.visualizado) {
-                temNaoLidas = true;
-              }
-            });
+    // Verificar se há notificações não lidas
+    const notificacoesRef = database.ref("notificacoes");
+    notificacoesRef.on("value", (snapshot) => {
+    let temNaoLidas = false;
+    snapshot.forEach((childSnapshot) => {
+    const n = childSnapshot.val();
+    // O botão só pisca se a notificação for direcionada AO usuário logado (destinatário) e ainda não visualizada
+    if (n.uidDestino === usuarioAtualUid && !n.visualizado) {
+    temNaoLidas = true;
+    }
+    });
 
-            const btn = document.getElementById("notificacaoBtn");
-            if (temNaoLidas) {
-              btn.classList.add("piscar");
-            } else {
-              btn.classList.remove("piscar");
-            }
-          }); // certo
+    const btn = document.getElementById("notificacaoBtn");
+    if (temNaoLidas) {
+    btn.classList.add("piscar");
+    } else {
+    btn.classList.remove("piscar");
+    }
+    }); // certo
 
-      // Carregar os itens solicitados
-      const databaseRef = database.ref("itensSolicitados");
-      databaseRef.on("value", (snapshot) => {
-        const data = snapshot.val();
-        const extras = [];
+    // Carregar os itens solicitados
+    const databaseRef = database.ref("itensSolicitados");
+    databaseRef.on("value", (snapshot) => {
+    const data = snapshot.val();
+    const extras = [];
 
-        if (data) {
-          Object.entries(data).forEach(([key, item]) => {
-            item.id = key; // ← necessário para atualizar/remover no Firebase
-            extras.push(item);
-          });
-        }
+    if (data) {
+    Object.entries(data).forEach(([key, item]) => {
+    item.id = key; // ← necessário para atualizar/remover no Firebase
+    extras.push(item);
+    });
+    }
 
-        todosItens.length = 0;
-        todosItens.push(...extras);
-        exibirItens(todosItens);
-      });
+    todosItens.length = 0;
+    todosItens.push(...extras);
+    exibirItens(todosItens);
+    });
     });
 
     function exibirItens(lista) {
@@ -209,6 +214,7 @@
     });
   </script>
 
-  <script src="./JS/register-sw.js"></script>
+<script src="./JS/register-sw.js"></script>
+
 </body>
 </html>
