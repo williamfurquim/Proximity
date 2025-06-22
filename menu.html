@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#9C27B0">
+  <link rel="stylesheet" href="./CSS/menu.css">
+  <title>Proximity</title>
+</head>
+<body>
+  <div class="centro">
+    
+    <img src="./Imagens/logo-sem-texto.png" alt="logo Proximity" />
+    <h1 class="msg">Agora comunique-se com <br> seus vizinhos</h1>
+
+    <a href="./compartilhamento.html">
+      <button class="compart">Compartilhamento de itens</button>
+    </a>
+
+    <a href="./alertas.html">
+      <button class="alert">Alertas de segurança</button>
+    </a>
+    
+    <a href="./eventos.html">
+      <button class="event">Eventos locais</button>
+    </a>
+
+    <div class="btn-menores">
+      <a href="./index.html">
+        <button class="trocarConta">👤 Trocar Conta</button>
+      </a>
+
+      <a href="./dicas-morador.html">
+        <button class="conversarIA">💡 Dicas do Morador</button>
+      </a>
+    </div>
+
+    <div id="user-info">
+      Carregando usuário...
+    </div>
+    
+  </div>
+
+<script>
+  window.addEventListener('load', () => {
+    document.body.classList.add('fade-in');
+  });
+</script>
+
+<script src="./JS/register-sw.js"></script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBlpWF7Gsyf4ax2PaXVR79zKncc419ktv4",
+    authDomain: "proximity-ddb49.firebaseapp.com",
+    databaseURL: "https://proximity-ddb49-default-rtdb.firebaseio.com",
+    projectId: "proximity-ddb49",
+    storageBucket: "proximity-ddb49.firebasestorage.app",
+    messagingSenderId: "112062802038",
+    appId: "1:112062802038:web:2f2eca97ef48e21c741757"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Exibir usuário logado
+  const userInfoDiv = document.getElementById('user-info');
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const displayName = user.displayName || "Usuário sem nome";
+      const email = user.email;
+      userInfoDiv.innerHTML = `Logado como: <strong>${user.email}</strong>`;
+    } else {
+      userInfoDiv.innerHTML = "Nenhum usuário logado";
+    }
+  });
+</script>
+
+</body>
+</html>
