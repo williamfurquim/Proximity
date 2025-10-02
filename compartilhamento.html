@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#9C27B0">
   <title>Compartilhamento de itens</title>
   <link rel="stylesheet" href="./CSS/compartilhamento.css">
 </head>
+
 <body>
   <div class="container">
 
@@ -19,7 +21,7 @@
     <input type="text" id="search" placeholder="O que você precisa hoje?" />
 
     <div class="categorias">
-      
+
       <a href="./notificacoes.html">
         <button id="notificacaoBtn">🔔</button>
       </a>
@@ -52,52 +54,53 @@
     let usuarioAtualUid = null;
     const todosItens = [];
 
+    // ===== CHECAR USUÁRIO LOGADO =====
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         alert("Você precisa estar logado.");
         window.location.href = "index.html";
         return;
-    }
+      }
 
-    usuarioAtualUid = user.uid;
+      usuarioAtualUid = user.uid;
 
-    // Verificar se há notificações não lidas
-    const notificacoesRef = database.ref("notificacoes");
-    notificacoesRef.on("value", (snapshot) => {
-    let temNaoLidas = false;
-    snapshot.forEach((childSnapshot) => {
-    const n = childSnapshot.val();
-    // O botão só pisca se a notificação for direcionada AO usuário logado (destinatário) e ainda não visualizada
-    if (n.uidDestino === usuarioAtualUid && !n.visualizado) {
-    temNaoLidas = true;
-    }
-    });
+      // Verificar se há notificações não lidas
+      const notificacoesRef = database.ref("notificacoes");
+      notificacoesRef.on("value", (snapshot) => {
+        let temNaoLidas = false;
+        snapshot.forEach((childSnapshot) => {
+          const n = childSnapshot.val();
+          // O botão só pisca se a notificação for direcionada AO usuário logado (destinatário) e ainda não visualizada
+          if (n.uidDestino === usuarioAtualUid && !n.visualizado) {
+            temNaoLidas = true;
+          }
+        });
 
-    const btn = document.getElementById("notificacaoBtn");
-    if (temNaoLidas) {
-    btn.classList.add("piscar");
-    } else {
-    btn.classList.remove("piscar");
-    }
-    }); // certo
+        const btn = document.getElementById("notificacaoBtn");
+        if (temNaoLidas) {
+          btn.classList.add("piscar");
+        } else {
+          btn.classList.remove("piscar");
+        }
+      }); // certo
 
-    // Carregar os itens solicitados
-    const databaseRef = database.ref("itensSolicitados");
-    databaseRef.on("value", (snapshot) => {
-    const data = snapshot.val();
-    const extras = [];
+      // Carregar os itens solicitados
+      const databaseRef = database.ref("itensSolicitados");
+      databaseRef.on("value", (snapshot) => {
+        const data = snapshot.val();
+        const extras = [];
 
-    if (data) {
-    Object.entries(data).forEach(([key, item]) => {
-    item.id = key; // ← necessário para atualizar/remover no Firebase
-    extras.push(item);
-    });
-    }
+        if (data) {
+          Object.entries(data).forEach(([key, item]) => {
+            item.id = key; // ← necessário para atualizar/remover no Firebase
+            extras.push(item);
+          });
+        }
 
-    todosItens.length = 0;
-    todosItens.push(...extras);
-    exibirItens(todosItens);
-    });
+        todosItens.length = 0;
+        todosItens.push(...extras);
+        exibirItens(todosItens);
+      });
     });
 
     function exibirItens(lista) {
@@ -194,12 +197,14 @@
       });
     }
 
+    // ===== BARRA DE PESQUISA =====
     document.getElementById("search").addEventListener("input", (e) => {
       const termo = e.target.value.toLowerCase();
       const filtrado = todosItens.filter(i => i.nome.toLowerCase().includes(termo));
       exibirItens(filtrado);
     });
 
+    // ===== CATEGORIAS? =====
     document.querySelectorAll(".categorias button").forEach(botao => {
       botao.addEventListener("click", () => {
         const categoria = botao.dataset.categoria;
@@ -214,7 +219,8 @@
     });
   </script>
 
-<script src="./JS/register-sw.js"></script>
+  <script src="./JS/register-sw.js"></script>
 
 </body>
+
 </html>

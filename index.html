@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#9C27B0">
   <link rel="stylesheet" href="./CSS/style.css">
   <meta name="theme-color" content="#2196f3">
-  <title>Proximity</title>  
+  <title>Proximity</title>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 </head>
+
 <body>
   <div class="centro">
-    
+
     <img src="./Imagens/Proximity-logo.PNG" alt="Logo" id="logo" />
     <h2 class="se-conecte">Se conecte ao seu bairro!</h2>
 
@@ -21,7 +23,7 @@
       <button class="login">Login</button>
       <button class="cadastro">Cadastrar-se</button>
     </div>
-    
+
     <form class="formulario login-form" style="display: none;">
       <input class="input-login" type="text" placeholder="Nome de usuário" required />
       <input class="input-login" type="password" placeholder="Senha" required />
@@ -66,7 +68,7 @@
         <option value="Vila Verde">Vila Verde</option>
         <option value="Santa Catarina">Santa Catarina</option>
       </select>
-      
+
       <button class="btn" type="submit">Cadastrar</button>
       <p class="sucesso" style="color: green; display: none; margin-top: 10px;">Cadastro realizado com sucesso!</p>
     </form>
@@ -83,36 +85,39 @@
 
   </div>
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBlpWF7Gsyf4ax2PaXVR79zKncc419ktv4",
-    authDomain: "proximity-ddb49.firebaseapp.com",
-    databaseURL: "https://proximity-ddb49-default-rtdb.firebaseio.com",
-    projectId: "proximity-ddb49",
-    storageBucket: "proximity-ddb49.appspot.com",
-    messagingSenderId: "112062802038",
-    appId: "1:112062802038:web:2f2eca97ef48e21c741757"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+  <script>
+    // ===== FIREBASE =====
+    const firebaseConfig = {
+      apiKey: "AIzaSyBlpWF7Gsyf4ax2PaXVR79zKncc419ktv4",
+      authDomain: "proximity-ddb49.firebaseapp.com",
+      databaseURL: "https://proximity-ddb49-default-rtdb.firebaseio.com",
+      projectId: "proximity-ddb49",
+      storageBucket: "proximity-ddb49.appspot.com",
+      messagingSenderId: "112062802038",
+      appId: "1:112062802038:web:2f2eca97ef48e21c741757"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-  const loginBtn = document.querySelector('.login');
-  const cadastroBtn = document.querySelector('.cadastro');
-  const loginForm = document.querySelector('.login-form');
-  const cadastroForm = document.querySelector('.cadastro-form');
+    // ===== ELEMENTOS =====
+    const loginBtn = document.querySelector('.login');
+    const cadastroBtn = document.querySelector('.cadastro');
+    const loginForm = document.querySelector('.login-form');
+    const cadastroForm = document.querySelector('.cadastro-form');
 
-    // Alternar formulários
+    // ===== INPUTS DE LOGIN =====
     loginBtn.addEventListener('click', () => {
       loginForm.style.display = 'block';
       cadastroForm.style.display = 'none';
     });
 
+    // ===== INPUTS DE CADASTRO =====
     cadastroBtn.addEventListener('click', () => {
       cadastroForm.style.display = 'block';
       loginForm.style.display = 'none';
     });
 
-    // Cadastro
+    // ===== CRIAÇÃO DE CONTA (CADASTRO) =====
     cadastroForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -156,7 +161,7 @@
         });
     });
 
-    // Login
+    // ===== LOGIN =====
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -190,9 +195,10 @@
           alert(error.message);
         });
     });
-</script>
+  </script>
 
-<script src="./JS/register-sw.js"></script>
+  <script src="./JS/register-sw.js"></script>
 
 </body>
+
 </html>

@@ -102,10 +102,11 @@ h1 {
 
 .tempo {
   font-size: 12px;
-  color: #54db46 
+  color: #54db46
 }
 
-.conteudo, .tempo {
+.conteudo,
+.tempo {
   margin-left: auto;
 }
 
@@ -165,11 +166,12 @@ p {
   max-width: 500px;
   position: fixed;
   bottom: 0px;
-  left: 50%;  
+  left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
-  align-items: center; /* ADICIONE ESTA LINHA */
+  align-items: center;
+  /* ADICIONE ESTA LINHA */
   padding: 20px;
   z-index: 1000;
   border-top: 0.1px solid #eaeaea;
@@ -239,8 +241,8 @@ p {
   transform: scale(1.05);
 }
 
-@media (max-width: 390px){
-  .categorias button{
+@media (max-width: 390px) {
+  .categorias button {
     font-size: 11px;
   }
 }

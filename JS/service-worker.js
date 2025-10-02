@@ -25,7 +25,7 @@ self.addEventListener('install', event => {
       return cache.addAll(arquivosParaCache);
     })
   );
-  self.skipWaiting(); // ativa o SW imediatamente
+  self.skipWaiting(); 
 });
 
 self.addEventListener('activate', event => {
@@ -34,13 +34,13 @@ self.addEventListener('activate', event => {
       Promise.all(
         keys.map(key => {
           if (key !== CACHE_NAME) {
-            return caches.delete(key); // remove caches antigos
+            return caches.delete(key); 
           }
         })
       )
     )
   );
-  self.clients.claim(); // assume controle das páginas abertas
+  self.clients.claim(); 
 });
 
 self.addEventListener('fetch', event => {

@@ -16,7 +16,8 @@ body {
   align-items: center;
   opacity: 0;
   transition: opacity 0.5s ease;
-  overflow: hidden; /* impede que o conteúdo transborde fora da tela */
+  overflow: hidden;
+  /* impede que o conteúdo transborde fora da tela */
 }
 
 body.fade-in {
@@ -33,7 +34,8 @@ body.fade-in {
   flex-direction: column;
   justify-content: center;
   padding: 20px;
-  overflow-y: auto; /* adiciona rolagem caso o conteúdo ultrapasse a altura */
+  overflow-y: auto;
+  /* adiciona rolagem caso o conteúdo ultrapasse a altura */
 }
 
 .centro img {
@@ -49,7 +51,7 @@ h1 {
   width: 100%;
 }
 
-.devamanda{
+.devamanda {
   height: 29px;
   width: 150px;
   margin-left: 10px;
@@ -59,23 +61,23 @@ h1 {
   margin-top: 45px;
 }
 
-.devamanda img{
+.devamanda img {
   height: 30px;
   width: auto;
   margin-top: 14px;
 }
 
-.devwilliam{
+.devwilliam {
   height: 29px;
   width: 180px;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
 }
 
-.devwilliam img{
+.devwilliam img {
   height: 30px;
   width: auto;
   margin-top: 14px;
@@ -99,15 +101,20 @@ button {
 .alert {
   background-color: rgb(48, 48, 48);
 }
+
 .alert:hover {
   background-color: rgb(29, 28, 28);
   transform: scale(1.02);
 }
 
-.compart, .event {
+.compart,
+.event {
   background-color: rgb(45, 3, 77);
 }
-.comer:hover, .event:hover,.compart:hover  {
+
+.comer:hover,
+.event:hover,
+.compart:hover {
   background-color: rgb(29, 2, 49);
   transform: scale(1.02);
 }
@@ -120,6 +127,7 @@ button {
   font-size: 12px;
   margin-top: 15px;
 }
+
 .trocarConta:hover {
   transform: scale(1.02);
 }
@@ -133,6 +141,7 @@ button {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+
 .conversarIA:hover {
   transform: scale(1.02);
 }
@@ -148,32 +157,29 @@ h3 {
   margin-top: 25px;
 }
 
-@media (max-width: 360px){
-  button{
+@media (max-width: 360px) {
+  button {
     width: 280px;
     padding: 23px;
   }
 
-  .msg{
+  .msg {
     font-size: 22px;
   }
 }
 
-@media (max-width: 290px){
-  button{
+@media (max-width: 290px) {
+  button {
     width: 240px;
     padding: 18px;
   }
 
-  .msg{
+  .msg {
     font-size: 18px;
   }
 
-  .user-info{
+  .user-info {
     font-size: 16px;
     color: red;
   }
 }
-
-
-  

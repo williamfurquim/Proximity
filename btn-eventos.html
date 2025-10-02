@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#9C27B0">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./CSS/btn-eventos.css">
@@ -54,7 +55,8 @@
       flex-direction: column;
     }
 
-    input, textarea {
+    input,
+    textarea {
       width: 100%;
       padding: 12px;
       margin-bottom: 15px;
@@ -64,7 +66,8 @@
       transition: border-color 0.3s;
     }
 
-    input:focus, textarea:focus {
+    input:focus,
+    textarea:focus {
       border-color: #007a7a;
       outline: none;
     }
@@ -104,6 +107,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
 
@@ -135,13 +139,14 @@
     </div>
   </div>
 
-  
+
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="./JS/firebase-config.js"></script>
 
   <script>
+    // ===== CAPTURA DE ELEMENTOS =====
     const dataInput = document.getElementById('data');
     const tituloInput = document.getElementById('titulo');
     const horaInput = document.getElementById('hora');
@@ -152,6 +157,7 @@
 
     let eventoEmEdicaoKey = null;
 
+    // ===== CHECAR USUÁRIO LOGADO =====
     firebase.auth().onAuthStateChanged(user => {
       if (!user) {
         alert("Você precisa estar logado.");
@@ -162,6 +168,7 @@
       const params = new URLSearchParams(window.location.search);
       eventoEmEdicaoKey = params.get('id');
 
+      // ===== EDIÇÃO DE UM EVENTO POSTADO =====
       if (eventoEmEdicaoKey) {
         const eventoRef = firebase.database().ref("eventos").child(eventoEmEdicaoKey);
         eventoRef.once("value").then(snapshot => {
@@ -180,7 +187,8 @@
         });
       }
 
-      formEvento.addEventListener('submit', function(e) {
+      // ===== FORMULÁRIO PREENCHIMENTO =====
+      formEvento.addEventListener('submit', function (e) {
         e.preventDefault();
 
         const evento = {
@@ -215,8 +223,8 @@
       });
     });
 
-    // Máscara telefone
-    contatoInput.addEventListener("input", function(e) {
+    // ===== FORMATAÇÃO DO TELEFONE AUTOMÁTICA =====
+    contatoInput.addEventListener("input", function (e) {
       let input = e.target.value.replace(/\D/g, "");
       if (input.length > 11) input = input.slice(0, 11);
 
@@ -232,4 +240,5 @@
   <script src="./JS/register-sw.js"></script>
 
 </body>
+
 </html>

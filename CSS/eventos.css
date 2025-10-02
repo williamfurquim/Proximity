@@ -76,7 +76,7 @@ body {
   word-break: break-word
 }
 
-p{
+p {
   margin-top: 20px;
 }
 
@@ -137,12 +137,12 @@ p{
 }
 
 .evento p {
-  font-size: 20px;   
+  font-size: 20px;
   color: #64fc53;
 }
 
 .evento p2 {
-  font-size: 24px;   
+  font-size: 24px;
   color: #1d1d1d;
 }
 
@@ -187,7 +187,8 @@ p{
 }
 
 .descricao-evento {
-  color: #df0909; /* Altere aqui para a cor que quiser */
+  color: #df0909;
+  /* Altere aqui para a cor que quiser */
   font-size: 15px;
   margin-top: 4px;
   word-wrap: break-word;
@@ -196,7 +197,8 @@ p{
 }
 
 .evento-adicionado .descricao-evento {
-  color: #e74c3c; /* vermelho, ou a cor que quiser para diferenciar */
+  color: #e74c3c;
+  /* vermelho, ou a cor que quiser para diferenciar */
 }
 
 .btn-excluir {
@@ -231,5 +233,3 @@ p{
 .btn-editar:hover {
   background-color: #d68910;
 }
-
-

@@ -17,18 +17,19 @@ body {
 }
 
 .container {
-    width: 100%;
-    max-width: 500px;
-    background: #ffffff;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    min-height: 100vh;
-    overflow-y: auto; /* permite scroll quando necessário */
-  }
-  
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  min-height: 100vh;
+  overflow-y: auto;
+  /* permite scroll quando necessário */
+}
+
 
 h1 {
   font-size: 22px;
@@ -67,7 +68,7 @@ input:focus {
   cursor: pointer;
   font-size: 14px;
   white-space: nowrap;
-  transition:transform 0.3s;
+  transition: transform 0.3s;
 }
 
 .categorias button:hover {
@@ -189,9 +190,9 @@ input:focus {
   background-color: #000000;
   transform: scale(1.02);
 }
-  
 
-#status-item{
+
+#status-item {
   background-color: teal;
   color: white;
   border: none;
@@ -203,7 +204,7 @@ input:focus {
   cursor: pointer;
 }
 
-#categoria-item{
+#categoria-item {
   background-color: teal;
   color: white;
   border: none;
@@ -215,7 +216,7 @@ input:focus {
   cursor: pointer;
 }
 
-#adicionar{
+#adicionar {
   background-color: rgb(2, 51, 51);
   color: white;
   border: none;
@@ -228,9 +229,11 @@ input:focus {
 }
 
 #itens-adicionados {
-  max-height: 500px; /* ajuste conforme necessário */
+  max-height: 500px;
+  /* ajuste conforme necessário */
   overflow-y: auto;
-  padding-right: 10px; /* evita corte do conteúdo com scroll */
+  padding-right: 10px;
+  /* evita corte do conteúdo com scroll */
   margin-top: 10px;
 }
 

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#9C27B0">
   <title>Notificações</title>
   <link rel="stylesheet" href="./CSS/compartilhamento.css">
@@ -20,7 +21,8 @@
     }
 
     .container {
-    overflow-x: hidden; /* Impede que conteúdo transborde horizontalmente */
+      overflow-x: hidden;
+      /* Impede que conteúdo transborde horizontalmente */
     }
 
     .notificacao img {
@@ -51,12 +53,13 @@
     }
   </style>
 </head>
+
 <body>
-  
+
   <div class="container">
 
     <h1>Notificações</h1>
-    
+
     <a href="./compartilhamento.html" style="width: 100%;">
       <button id="retornar-botao-not">Voltar</button>
     </a>
@@ -74,7 +77,7 @@
   <script>
     let usuarioAtualUid = null;
 
-    // Função para pegar as notificações do Firebase
+    // ===== CHECAGEM DE USUÁRIO LOGADO =====
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         alert("Você precisa estar logado.");
@@ -122,7 +125,7 @@
       });
     }
 
-    // Marca as notificações como lidas
+    // // ===== MARCAR NOTIFICAÇÕES COMO LIDAS =====
     document.getElementById("marcarLidasBtn").addEventListener("click", () => {
       const notificacoesRef = firebase.database().ref("notificacoes");
 
@@ -138,13 +141,12 @@
       });
     });
 
-    // Verificar se há notificações não lidas
+    // ===== VERIFICA SE HÁ NOTIFICAÇÕES NÃO LIDAS =====
     const notificacoesRef = firebase.database().ref("notificacoes");
     notificacoesRef.on("value", (snapshot) => {
       let temNaoLidas = false;
       snapshot.forEach((childSnapshot) => {
         const n = childSnapshot.val();
-        // Verifica se o usuário atual é o destinatário e se a notificação não foi visualizada
         if (n.uidDestino === usuarioAtualUid && !n.visualizado) {
           temNaoLidas = true;
         }
@@ -159,4 +161,5 @@
     });
   </script>
 </body>
+
 </html>

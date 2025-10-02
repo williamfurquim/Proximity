@@ -43,6 +43,7 @@ h1 {
 #chat-box::-webkit-scrollbar {
   width: 6px;
 }
+
 #chat-box::-webkit-scrollbar-thumb {
   background-color: #6936aa;
   border-radius: 3px;
@@ -113,6 +114,7 @@ input:focus {
 #enviar-msg {
   background-color: teal;
 }
+
 #enviar-msg:hover {
   background-color: #004848;
   transform: scale(1.02);
@@ -121,6 +123,7 @@ input:focus {
 #retornar-botao-not {
   background-color: black;
 }
+
 #retornar-botao-not:hover {
   background-color: #000;
   transform: scale(1.02);

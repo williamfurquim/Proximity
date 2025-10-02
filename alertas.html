@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#9C27B0">
   <title>Alertas de Segurança</title>
   <link rel="stylesheet" href="./CSS/alertas.css">
 </head>
+
 <body>
   <div class="container">
 
@@ -34,15 +36,16 @@
 
   </div>
 
-  
+
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="./JS/firebase-config.js"></script>
   <script>
-    function enviarMensagemPanico(){
-      if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(function(position){
+    // ===== API DO GOOGLE MAPS =====
+    function enviarMensagemPanico() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
           const mapsLink = `https://maps.google.com/?q=${latitude},${longitude}`;
@@ -50,13 +53,13 @@
 
           const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
           window.open(url, '_blank');
-          }, function(error){
-            alert('Erro ao obter localização. Por favor, ative o GPS.');
-          });
-        }else{
-          alert('Seu navegador não suporta geolocalização.');
-        }
-      }    
+        }, function (error) {
+          alert('Erro ao obter localização. Por favor, ative o GPS.');
+        });
+      } else {
+        alert('Seu navegador não suporta geolocalização.');
+      }
+    }    
   </script>
 
   <script>
@@ -66,6 +69,7 @@
 
     let usuarioAtualUID = null;
 
+    // ===== CHECAR SE ESTÁ LOGADO =====
     firebase.auth().onAuthStateChanged(user => {
       if (!user) {
         alert("Você precisa estar logado.");
@@ -98,7 +102,7 @@
               <div class="icone">${tipoAlerta === 'urgente' ? '🚨' : '⚠️'}</div>
               <div class="conteudo">
                 <span class="tempo">
-                  ${tipoAlerta === 'urgente'? 'Polícia: 190 | Emergência: 192':'Alerta de segurança'}
+                  ${tipoAlerta === 'urgente' ? 'Polícia: 190 | Emergência: 192' : 'Alerta de segurança'}
                   </span>
                 <strong>${alerta.titulo}</strong>
                 <p>${alerta.descricao}</p>
@@ -113,10 +117,9 @@
               botoesDiv.innerHTML += `
                 <button onclick="editarAlerta('${key}')">✏️ Editar</button>
                 <button onclick="excluirAlerta('${key}')">🗑️ Excluir</button>
-                ${
-                  isResolvido
-                    ? `<button onclick="cancelarResolvido('${key}')">↩️ Cancelar</button>`
-                    : `<button onclick="resolverAlerta('${key}')">✅ Resolvido</button>`
+                ${isResolvido
+                  ? `<button onclick="cancelarResolvido('${key}')">↩️ Cancelar</button>`
+                  : `<button onclick="resolverAlerta('${key}')">✅ Resolvido</button>`
                 }
               `;
             }
@@ -158,8 +161,9 @@
       });
     });
   </script>
-    
+
   <script src="./JS/register-sw.js"></script>
 
 </body>
+
 </html>

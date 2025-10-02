@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#9C27B0">
   <title>Eventos Locais</title>
   <link rel="stylesheet" href="./CSS/eventos.css">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet" />
 </head>
+
 <body>
   <div class="container">
 
@@ -37,7 +39,7 @@
     </div>
   </div>
 
-  
+
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -46,13 +48,15 @@
   <script>
     const container = document.getElementById('eventosDinamicos');
 
-    firebase.auth().onAuthStateChanged(user => { //Verifica no Firebase se o usuário está logado, se não estiver o envie para a página de login
+    // ===== CHECAGEM DE USUÁRIO LOGADO =====
+    firebase.auth().onAuthStateChanged(user => {
       if (!user) {
         alert("Você precisa estar logado para ver os eventos.");
         window.location.href = "index.html";
         return;
       }
 
+      // ===== IDENTIFICA SE HÁ EVENTOS CADASTRADOS =====
       const eventosRef = firebase.database().ref("eventos");
       eventosRef.once("value", snapshot => {
         container.innerHTML = "";
@@ -61,29 +65,30 @@
           return;
         }
 
+        // ===== ADIÇÃO DE EVENTO =====
         snapshot.forEach(child => {
-        const evento = child.val();
-        const key = child.key;
+          const evento = child.val();
+          const key = child.key;
 
-        //Tenta combinar data e hora (formato: "2025-06-10", "14:00")
-        const dataHoraString = `${evento.data} ${evento.hora || "00:00"}`; // Adicionado depois de ter criado o o clone
-        const eventoDate = new Date(dataHoraString);
+          
+          const dataHoraString = `${evento.data} ${evento.hora || "00:00"}`; 
+          const eventoDate = new Date(dataHoraString);
 
-        //Se a data já passou, exclui o evento
-        if (eventoDate < new Date()){
-          firebase.database().ref("eventos").child(key).remove(); // Adicionado depois de ter criado o o clone
-          return; //Não exibe esse evento
-        }
+          
+          if (eventoDate < new Date()) {
+            firebase.database().ref("eventos").child(key).remove(); 
+            return; 
+          }
 
-        const div = document.createElement('div');
-        div.className = 'evento';
+          const div = document.createElement('div');
+          div.className = 'evento';
 
-        const botoes = evento.uid === user.uid ? `
+          const botoes = evento.uid === user.uid ? `
           <button class="btn-excluir" onclick="excluirEvento('${key}')">🗑️ Excluir Evento</button>
           <button class="btn-editar" onclick="editarEvento('${key}')">✏️ Editar Evento</button>
         ` : '';
 
-        div.innerHTML = `
+          div.innerHTML = `
           <small>${evento.data}</small>
           <div class="evento-info">
             <div>
@@ -97,22 +102,23 @@
           `;
           container.appendChild(div);
         });
-        });
       });
+    });
 
-      function excluirEvento(key) {
+    function excluirEvento(key) {
       if (confirm("Tem certeza que deseja excluir este evento?")) {
         firebase.database().ref("eventos").child(key).remove()
           .then(() => location.reload())
           .catch(error => console.error("Erro ao excluir:", error));
       }
-      }
+    }
 
-      function editarEvento(key) {
+    function editarEvento(key) {
       window.location.href = `btn-eventos.html?id=${key}`;
-      }
+    }
   </script>
-    <script src="./JS/register-sw.js"></script>
+  <script src="./JS/register-sw.js"></script>
 
 </body>
+
 </html>

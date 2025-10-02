@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dicas do Morador</title>
   <link rel="stylesheet" href="./CSS/dicas-morador.css" />
 </head>
+
 <body>
   <div class="container">
     <h1>Sua melhor dica de convivência 👇</h1>
 
     <div id="chat-box">
-      <!-- Comentários serão inseridos aqui -->
     </div>
 
     <input type="text" id="comentario" placeholder="Escreva sua sugestão para a vizinhança..." />
@@ -40,17 +41,20 @@
 
     const comentarioInput = document.getElementById("comentario");
     const enviarBtn = document.getElementById("enviar-msg");
+
+    // ===== ENVIAR COMENTÁRIO APERTANDO EM "ENTER" =====
     comentarioInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-          event.preventDefault(); // evita quebra de linha no input, se for textarea (no seu caso é input, mas fica de boa)
-          enviarBtn.click(); // dispara o clique do botão "Enviar Sugestão"
-        }
-      });
+      if (event.key === "Enter") {
+        event.preventDefault(); 
+        enviarBtn.click();
+      }
+    });
     const chatBox = document.getElementById("chat-box");
 
     let userEmail = "Anônimo";
     let userUID = null;
 
+    // ===== PERFIL =====
     onAuthStateChanged(auth, (user) => {
       if (user) {
         userEmail = user.email;
@@ -59,10 +63,11 @@
     });
 
     function capitalizarPrimeiraLetra(texto) {
-  if (!texto) return "";
-  return texto.charAt(0).toUpperCase() + texto.slice(1);
-}
+      if (!texto) return "";
+      return texto.charAt(0).toUpperCase() + texto.slice(1);
+    }
 
+    // ===== ENVIAR AO MURAL =====
     enviarBtn.addEventListener("click", () => {
       let texto = comentarioInput.value.trim();
       texto = capitalizarPrimeiraLetra(texto);
@@ -82,32 +87,32 @@
 
     const comentariosRef = ref(db, "guiaComentarios");
     onValue(comentariosRef, (snapshot) => {
-  const comentarios = [];
+      const comentarios = [];
 
-  snapshot.forEach((childSnapshot) => {
-    comentarios.push({
-      key: childSnapshot.key,
-      ...childSnapshot.val()
-    });
-  });
+      snapshot.forEach((childSnapshot) => {
+        comentarios.push({
+          key: childSnapshot.key,
+          ...childSnapshot.val()
+        });
+      });
 
-  comentarios.reverse();
+      comentarios.reverse();
 
-  chatBox.innerHTML = "";
+      chatBox.innerHTML = "";
 
-  comentarios.forEach(({ key, texto, autor, data, uid }) => {
-    const item = document.createElement("div");
-    item.className = "item";
+      comentarios.forEach(({ key, texto, autor, data, uid }) => {
+        const item = document.createElement("div");
+        item.className = "item";
 
-    let controles = "";
-    if (uid === userUID) {
-      controles = `
+        let controles = "";
+        if (uid === userUID) {
+          controles = `
         <button class="editar-btn" data-key="${key}">✏️</button>
         <button class="excluir-btn" data-key="${key}">🗑️</button>
       `;
-    }
+        }
 
-    item.innerHTML = `
+        item.innerHTML = `
       <div class="conteudo">
         <span class="spanverde">${autor}</span><br>
         <small style="color:gray">${data}</small><br>
@@ -116,70 +121,71 @@
       <div class="controles">${controles}</div>
     `;
 
-    chatBox.appendChild(item);
-  });
+        chatBox.appendChild(item);
+      });
 
-  chatBox.scrollTop = 0;
+      chatBox.scrollTop = 0;
 
-  document.querySelectorAll(".excluir-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const key = btn.dataset.key;
-      if (confirm("Quer mesmo excluir esta sugestão?")) {
-        remove(ref(db, `guiaComentarios/${key}`));
-      }
+      document.querySelectorAll(".excluir-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.key;
+          if (confirm("Quer mesmo excluir esta sugestão?")) {
+            remove(ref(db, `guiaComentarios/${key}`));
+          }
+        });
+      });
+
+      document.querySelectorAll(".editar-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.key;
+          const itemDiv = btn.closest(".item");
+          const textoSpan = itemDiv.querySelector(".texto-comentario");
+
+          const currentText = textoSpan.textContent;
+          textoSpan.innerHTML = `<input type="text" class="edit-input" value="${currentText}" style="width: 100%;">`;
+
+          btn.style.display = "none";
+          const excluirBtn = itemDiv.querySelector(".excluir-btn");
+          if (excluirBtn) excluirBtn.style.display = "none";
+
+          const salvarBtn = document.createElement("button");
+          salvarBtn.textContent = "💾";
+          const cancelarBtn = document.createElement("button");
+          cancelarBtn.textContent = "❌";
+
+          const controlesDiv = itemDiv.querySelector(".controles");
+          controlesDiv.appendChild(salvarBtn);
+          controlesDiv.appendChild(cancelarBtn);
+
+          // Aqui adicionamos o listener para o Enter no input de edição:
+          const inputEdit = itemDiv.querySelector(".edit-input");
+          inputEdit.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              salvarBtn.click();
+            }
+          });
+
+          salvarBtn.addEventListener("click", () => {
+            let novoTexto = inputEdit.value.trim();
+            novoTexto = capitalizarPrimeiraLetra(novoTexto);
+            if (novoTexto) {
+              update(ref(db, `guiaComentarios/${key}`), { texto: novoTexto });
+            }
+          });
+
+          cancelarBtn.addEventListener("click", () => {
+            textoSpan.textContent = currentText;
+            salvarBtn.remove();
+            cancelarBtn.remove();
+            btn.style.display = "inline-block";
+            if (excluirBtn) excluirBtn.style.display = "inline-block";
+          });
+        });
+      });
     });
-  });
-
-  document.querySelectorAll(".editar-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-  const key = btn.dataset.key;
-  const itemDiv = btn.closest(".item");
-  const textoSpan = itemDiv.querySelector(".texto-comentario");
-
-  const currentText = textoSpan.textContent;
-  textoSpan.innerHTML = `<input type="text" class="edit-input" value="${currentText}" style="width: 100%;">`;
-
-  btn.style.display = "none";
-  const excluirBtn = itemDiv.querySelector(".excluir-btn");
-  if (excluirBtn) excluirBtn.style.display = "none";
-
-  const salvarBtn = document.createElement("button");
-  salvarBtn.textContent = "💾";
-  const cancelarBtn = document.createElement("button");
-  cancelarBtn.textContent = "❌";
-
-  const controlesDiv = itemDiv.querySelector(".controles");
-  controlesDiv.appendChild(salvarBtn);
-  controlesDiv.appendChild(cancelarBtn);
-
-  // Aqui adicionamos o listener para o Enter no input de edição:
-  const inputEdit = itemDiv.querySelector(".edit-input");
-  inputEdit.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      salvarBtn.click();
-    }
-  });
-
-  salvarBtn.addEventListener("click", () => {
-    let novoTexto = inputEdit.value.trim();
-    novoTexto = capitalizarPrimeiraLetra(novoTexto);
-    if (novoTexto) {
-      update(ref(db, `guiaComentarios/${key}`), { texto: novoTexto });
-    }
-  });
-
-  cancelarBtn.addEventListener("click", () => {
-    textoSpan.textContent = currentText;
-    salvarBtn.remove();
-    cancelarBtn.remove();
-    btn.style.display = "inline-block";
-    if (excluirBtn) excluirBtn.style.display = "inline-block";
-  });
-});
-  });
-});
 
   </script>
 </body>
+
 </html>
