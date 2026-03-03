@@ -10,6 +10,7 @@ A plataforma foi projetada para centralizar interações comunitárias em um ún
 
 
 👉 FUNCIONALIDADES PRINCIPAIS
+
 ⏺️ TROCA ENTRE VIZINHOS
 Sistema para publicação e solicitação de itens, promovendo economia colaborativa dentro da comunidade.
 
