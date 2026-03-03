@@ -1,13 +1,12 @@
 Aplicação web voltada ao fortalecimento da comunicação e colaboração em comunidades locais, integrando funcionalidades de troca entre vizinhos, alertas em tempo real e mural interativo de informações.
 
-
 👉 VISÃO GERAL
 A plataforma foi projetada para centralizar interações comunitárias em um único ambiente digital, facilitando:
-✅ Troca de itens entre moradores
-✅ Publicação de avisos e eventos locais
-✅ Emissão de alertas inteligentes baseados em localização
-✅ Visualização geográfica com integração à API do Google Maps
-✅ O objetivo é reduzir a fragmentação da comunicação local, oferecendo uma experiência unificada, intuitiva e acessível.
+- Troca de itens entre moradores ✅
+- Publicação de avisos e eventos locais ✅
+- Emissão de alertas inteligentes baseados em localização ✅
+- Visualização geográfica com integração à API do Google Maps ✅
+- O objetivo é reduzir a fragmentação da comunicação local, oferecendo uma experiência unificada, intuitiva e acessível ✅
 
 
 👉 FUNCIONALIDADES PRINCIPAIS
@@ -21,11 +20,11 @@ Notificações em tempo real associadas a localização geográfica, com suporte
 Espaço para divulgação de notícias, eventos e comunicados, incentivando participação ativa dos moradores.
 
 ⏺️ SUPORTE A PWA
-✅ A aplicação funciona como Progressive Web App, permitindo:
-✅ Instalação no dispositivo
-✅ Uso em tela cheia
-✅ Melhor desempenho
-✅ Experiência responsiva em desktop e mobile
+- A aplicação funciona como Progressive Web App, permitindo:
+- Instalação no dispositivo ✅
+- Uso em tela cheia ✅
+- Melhor desempenho ✅
+- Experiência responsiva em desktop e mobile ✅
 
 
 👉 TECNOLOGIAS UTILIZADAS
