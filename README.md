@@ -1,7 +1,8 @@
 Aplicação web voltada ao fortalecimento da comunicação e colaboração em comunidades locais, integrando funcionalidades de troca entre vizinhos, alertas em tempo real e mural interativo de informações.
 
+
 👉 VISÃO GERAL
-✅ A plataforma foi projetada para centralizar interações comunitárias em um único ambiente digital, facilitando:
+A plataforma foi projetada para centralizar interações comunitárias em um único ambiente digital, facilitando:
 ✅ Troca de itens entre moradores
 ✅ Publicação de avisos e eventos locais
 ✅ Emissão de alertas inteligentes baseados em localização
@@ -28,16 +29,17 @@ Espaço para divulgação de notícias, eventos e comunicados, incentivando part
 
 
 👉 TECNOLOGIAS UTILIZADAS
-HTML para estrutura semântica
-CSS para layout responsivo e identidade visual
-JavaScript para lógica de interação e consumo de APIs
-Integração com API do Google Maps
-Implementação de recursos PWA
+- HTML para estrutura semântica
+- CSS para layout responsivo e identidade visual
+- JavaScript para lógica de interação e consumo de APIs
+- Integração com API do Google Maps
+- Implementação de recursos PWA
+
 
 👉 DIFERENCIAL
-O projeto demonstra capacidade de:
-Desenvolver aplicações front-end completas
-Integrar APIs externas
-Estruturar experiência centrada no usuário
-Aplicar conceitos modernos de web progressiva
-Projetar soluções digitais com impacto social
+- O projeto demonstra capacidade de:
+- Desenvolver aplicações front-end completas
+- Integrar APIs externas
+- Estruturar experiência centrada no usuário
+- Aplicar conceitos modernos de web progressiva
+- Projetar soluções digitais com impacto social
